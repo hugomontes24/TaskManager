@@ -1,1 +1,259 @@
-<p>dashboard works!</p>
+<nav aria-label="breadcrumb" class="bg-light p-1">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Tableau</li>
+    </ol>
+  </nav>
+
+  <h5>Tableau des taches</h5>
+
+  <div class="row">
+    <div class="box1 col-lg-3 pb-3">
+        <div class="row">
+          <div class="subt col-11 text-white text-center mx-auto rounded pt-2 pb-2">{{ designation }}</div>
+          <div class="col-12 text-center mt2">
+            <img src="assets/user.png" alt="" width="120">
+          </div>
+          <div class="col-12 text-center pt-2 pb-2 font-weight-bold">{{username}}</div>
+          <div class="col-12 text-center pt-2 pb-2 font-weight-bold">TEAM SUMMARY</div>
+          <div class="col-12 mb-3">
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Nb of team members
+                <span class="badge bg-secondary badge-pill">{{nbOfTeamMembers}}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Total cost of all Projects
+                <span class="badge bg-secondary badge-pill">{{totalCostOfAllProjects}}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Pending tasks
+                <span class="badge bg-secondary badge-pill">{{pendingtasks}}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Upcoming projects
+                <span class="badge bg-secondary badge-pill">{{upComingProjects}}</span>
+              </li>
+            </ul>
+          </div>
+          <div class="col-12 text-center pt-2">Clients</div>
+          <div class="col-12">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">ABC infotech</li>
+              <li class="list-group-item">DEF Software</li>
+              <li class="list-group-item">GHI Industries</li>
+            </ul>
+          </div>
+
+        </div>
+    </div>
+
+
+    <div class="box2 col-lg-6">
+      <div class="row">
+        <div class="subt col-12 pt-0 pb-2">
+          <div class="row mt-2">
+            <div class="col-6 text-left">
+               <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  Project A
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="#">Project A</a></li>
+                  <li><a class="dropdown-item" href="#">Project B</a></li>
+                  <li><a class="dropdown-item" href="#">Project C</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="col-6 text-right">
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                  2019
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                  <li><a class="dropdown-item" href="#">2019</a></li>
+                  <li><a class="dropdown-item" href="#">2018</a></li>
+                  <li><a class="dropdown-item" href="#">2017</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="briefing col-11 text-white text-center mx-auto mt-1 rounded pt-2 pb-2 font-weight-bold" >PROJECT BRIEFING</div>
+        <div class="col-12">
+          <table class="table table-bordless">
+            <tr>
+              <td>Project Cost</td>
+              <td>{{projectCost}}</td>
+            </tr>
+            <tr>
+              <td>Current Expenditure</td>
+              <td>{{currentExpenditure}}</td>
+            </tr>
+            <tr>
+              <td>Available Funds</td>
+              <td>{{availableFunds}}</td>
+            </tr>
+          </table>
+        </div>
+        <div class="team col-11 text-white text-center mx-auto mt-1 rounded pt-2 pb-2 font-weight-bold" >Teams Members Summary</div>
+        <div class="col-12">
+          <table class="table">
+            <tr>
+              <th>Région</th>
+              <th>Team Members Count</th>
+              <th>Temporarily Unavailable Members</th>
+            </tr>
+            <tr>
+              <td><b>East</b></td>
+              <td>20</td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <td><b>North</b></td>
+              <td>20</td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <td><b>South</b></td>
+              <td>20</td>
+              <td>4</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="box3 col-lg-3">
+      <div class="row">
+        <div class="subt col-11 text-white text-center mx-auto rounded pt-2 pb-2">Team Members</div>
+        <div class="col-lg-12 pt-2">
+
+          <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  East
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>Ford</td>
+                        <td>Occupé</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>Dupond</td>
+                        <td>Libre</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>Pascal</td>
+                        <td>Libre</td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                  South
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>Ford</td>
+                        <td>Occupé</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>Dupond</td>
+                        <td>Libre</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>Pascal</td>
+                        <td>Libre</td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                  North
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>Ford</td>
+                        <td>Occupé</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>Dupond</td>
+                        <td>Libre</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>Pascal</td>
+                        <td>Libre</td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
