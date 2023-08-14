@@ -11,7 +11,7 @@ export class AppComponent {
   
   constructor(private modalService: NgbModal) { }
 
-  public open(modal: any): void {
+  public open(modal: any): void { // bootstrap
     this.modalService.open(modal);
   }
 }
