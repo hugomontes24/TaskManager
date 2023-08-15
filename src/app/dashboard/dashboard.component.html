@@ -39,9 +39,7 @@
           <div class="col-12 text-center pt-2">Clients</div>
           <div class="col-12">
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">ABC infotech</li>
-              <li class="list-group-item">DEF Software</li>
-              <li class="list-group-item">GHI Industries</li>
+              <li *ngFor="let client of clients" class="list-group-item">{{ client  }}</li>
             </ul>
           </div>
 
@@ -56,12 +54,10 @@
             <div class="col-6 text-left">
                <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                  Project A
+                  Projects
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li><a class="dropdown-item" href="#">Project A</a></li>
-                  <li><a class="dropdown-item" href="#">Project B</a></li>
-                  <li><a class="dropdown-item" href="#">Project C</a></li>
+                  <li><a *ngFor="let project of projects" class="dropdown-item" href="#">{{ project }}</a></li>
                 </ul>
               </div>
             </div>
@@ -69,12 +65,10 @@
             <div class="col-6 text-right">
               <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                  2019
+                  Année
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                  <li><a class="dropdown-item" href="#">2019</a></li>
-                  <li><a class="dropdown-item" href="#">2018</a></li>
-                  <li><a class="dropdown-item" href="#">2017</a></li>
+                  <li><a *ngFor="let year of years" class="dropdown-item" href="#">{{year}}</a></li>
                 </ul>
               </div>
             </div>
@@ -105,21 +99,12 @@
               <th>Team Members Count</th>
               <th>Temporarily Unavailable Members</th>
             </tr>
-            <tr>
-              <td><b>East</b></td>
-              <td>20</td>
-              <td>4</td>
+            <tr *ngFor="let team of teamMembersSummary">
+              <td><b>{{team.region}}</b></td>
+              <td>{{team.teamMembersCount}}</td>
+              <td>{{team.temporaryUnavailableMembers}}</td>
             </tr>
-            <tr>
-              <td><b>North</b></td>
-              <td>20</td>
-              <td>4</td>
-            </tr>
-            <tr>
-              <td><b>South</b></td>
-              <td>20</td>
-              <td>4</td>
-            </tr>
+          
           </table>
         </div>
       </div>
@@ -129,15 +114,15 @@
       <div class="row">
         <div class="subt col-11 text-white text-center mx-auto rounded pt-2 pb-2">Team Members</div>
         <div class="col-lg-12 pt-2">
-
           <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
+
+            <div *ngFor="let teamMember of teamMembers;let i = index" class="accordion-item">
               <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  East
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]=" '#collapseOne' + i" aria-expanded="true" aria-controls="collapseOne">
+                  {{teamMember.region}}
                 </button>
               </h2>
-              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+              <div [id]="'collapseOne' + i" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                   <table class="table">
                     <thead>
@@ -148,101 +133,11 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Ford</td>
-                        <td>Occupé</td>
+                      <tr *ngFor="let member of teamMember.members">
+                        <td>{{member.id}}</td>
+                        <td>{{member.name}}</td>
+                        <td>{{member.status}}</td>
                       </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Dupond</td>
-                        <td>Libre</td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>Pascal</td>
-                        <td>Libre</td>
-                      </tr>
-
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            
-
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingTwo">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                  South
-                </button>
-              </h2>
-              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Ford</td>
-                        <td>Occupé</td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Dupond</td>
-                        <td>Libre</td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>Pascal</td>
-                        <td>Libre</td>
-                      </tr>
-
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingThree">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-                  North
-                </button>
-              </h2>
-              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Ford</td>
-                        <td>Occupé</td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Dupond</td>
-                        <td>Libre</td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>Pascal</td>
-                        <td>Libre</td>
-                      </tr>
-
                     </tbody>
                   </table>
                 </div>
