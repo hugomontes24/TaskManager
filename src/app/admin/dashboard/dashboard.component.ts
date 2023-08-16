@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DashboardService } from 'src/app/dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,31 +22,31 @@ export class DashboardComponent implements OnInit{
   years: number[] = [];
   teamMembersSummary: any[] = [];
   teamMembers: any[] = [];
+  today!: Date;
+
+  constructor(private dashboardService: DashboardService){}
 
   ngOnInit(): void {
+
     this.designation = "Chef d'équipe";
     this.username = "John Smith";
     this.nbOfTeamMembers = 67;
     this.totalCostOfAllProjects= 240;
-    this.pendingtasks = 15;
-    this.upComingProjects=2;
+    this.pendingtasks = 0.15;
+    this.upComingProjects=0.2;
     this.projectCost=211342;
     this.currentExpenditure=9876;
     this.availableFunds=54340;
 
     this.clients= ["ABC Ltd", "DEF Solutions", "GHI Industries" ];
     this.projects= ["Project A", "Project B", "Project C" ];
+    this.today = new Date();
 
-    for(let i=2019; i>2015; i--){
+    for(let i=2019; i>2012; i--){
       this.years.push(i);
     }
 
-    this.teamMembersSummary = [
-      { region: "East", teamMembersCount: 21, temporaryUnavailableMembers: 4},
-      { region: "North", teamMembersCount: 41, temporaryUnavailableMembers: 3},
-      { region: "West", teamMembersCount: 15, temporaryUnavailableMembers: 2},
-      { region: "South", teamMembersCount: 43, temporaryUnavailableMembers: 4}
-    ];
+    this.teamMembersSummary = this.dashboardService.getTeamMembersSummary();
 
     this.teamMembers = [
       {
@@ -84,9 +85,25 @@ export class DashboardComponent implements OnInit{
 
         ]
       }
-    ]
-
+    ];
 
   }
+  
+  onProjectChange($event: any){
+    if($event.target.innerHTML == "Project A"){
+      this.projectCost=211342;
+      this.currentExpenditure=9876;
+      this.availableFunds=54340;
+    }else if($event.target.innerHTML == "Project B"){
+      this.projectCost=600000;
+      this.currentExpenditure=1088;
+      this.availableFunds=76666;
+    }else if($event.target.innerHTML == "Project C"){
+      this.projectCost=90000;
+      this.currentExpenditure=543;
+      this.availableFunds=12345;
+    }
+  }
+
 
 }

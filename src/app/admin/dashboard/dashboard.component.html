@@ -6,7 +6,7 @@
   </nav>
 
   <h5>Tableau des taches</h5>
-
+  <h6>{{today | date:"shortDate" }}</h6>
   <div class="row">
     <div class="box1 col-lg-3 pb-3">
         <div class="row">
@@ -24,23 +24,24 @@
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 Total cost of all Projects
-                <span class="badge bg-secondary badge-pill">{{totalCostOfAllProjects}}</span>
+                <span class="badge bg-secondary badge-pill">{{totalCostOfAllProjects }} € </span>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 Pending tasks
-                <span class="badge bg-secondary badge-pill">{{pendingtasks}}</span>
+                <span class="badge bg-secondary badge-pill">{{pendingtasks | percent}}</span>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 Upcoming projects
-                <span class="badge bg-secondary badge-pill">{{upComingProjects}}</span>
+                <span class="badge bg-secondary badge-pill">{{upComingProjects | percent}}</span>
               </li>
             </ul>
           </div>
           <div class="col-12 text-center pt-2">Clients</div>
           <div class="col-12">
             <ul class="list-group list-group-flush">
-              <li *ngFor="let client of clients" class="list-group-item">{{ client  }}</li>
+              <li *ngFor="let client of clients" class="list-group-item">{{ client | slice:0:10 }}</li>
             </ul>
+            {{teamMembersSummary | json }}
           </div>
 
         </div>
@@ -57,7 +58,7 @@
                   Projects
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li><a *ngFor="let project of projects" class="dropdown-item" href="#">{{ project }}</a></li>
+                  <li *ngFor="let project of projects"><a (click)="onProjectChange($event)" class="dropdown-item" href="#" onclick="return false">{{ project }}</a></li>
                 </ul>
               </div>
             </div>
@@ -68,7 +69,16 @@
                   Année
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                  <li><a *ngFor="let year of years" class="dropdown-item" href="#">{{year}}</a></li>
+                  <li>
+                    <a *ngFor="let year of years" class="dropdown-item" href="#">
+                      <span [ngSwitch]="year">
+                        <span *ngSwitchCase="'2019'" style="color:green">{{year}}</span>
+                        <span *ngSwitchCase="'2018'" style="color:blue">{{year}}</span>
+                        <span *ngSwitchCase="'2017'" style="color:red">{{year}}</span>
+                        <span *ngSwitchDefault style="color:black">{{year}}</span>
+                      </span>
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -78,16 +88,16 @@
         <div class="col-12">
           <table class="table table-bordless">
             <tr>
-              <td>Project Cost</td>
-              <td>{{projectCost}}</td>
+              <td >Project Cost</td>
+              <td class="text-end">{{projectCost | currency:"EUR"}} </td>
             </tr>
             <tr>
               <td>Current Expenditure</td>
-              <td>{{currentExpenditure}}</td>
+              <td class="text-end">{{currentExpenditure}} € </td>
             </tr>
             <tr>
               <td>Available Funds</td>
-              <td>{{availableFunds}}</td>
+              <td class="text-end">{{availableFunds}} € </td>
             </tr>
           </table>
         </div>
@@ -117,29 +127,31 @@
           <div class="accordion" id="accordionExample">
 
             <div *ngFor="let teamMember of teamMembers;let i = index" class="accordion-item">
-              <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]=" '#collapseOne' + i" aria-expanded="true" aria-controls="collapseOne">
-                  {{teamMember.region}}
-                </button>
-              </h2>
-              <div [id]="'collapseOne' + i" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let member of teamMember.members">
-                        <td>{{member.id}}</td>
-                        <td>{{member.name}}</td>
-                        <td>{{member.status}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+              <div *ngIf="i!=0" >
+                <h2 class="accordion-header" id="headingOne">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]=" '#collapseOne' + i" aria-expanded="true" aria-controls="collapseOne">
+                    {{teamMember.region}}
+                  </button>
+                </h2>
+                <div [id]="'collapseOne' + i" class="accordion-collapse collapse" [ngClass]="(i==0)?'show':''" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Id</th>
+                          <th>Name</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let member of teamMember.members">
+                          <td>{{member.id}}</td>
+                          <td [style.color]="(member.status =='Busy')?'red':'blue'">{{member.name}}</td>
+                          <td>{{member.status}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>

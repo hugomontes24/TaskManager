@@ -1,0 +1,21 @@
+<h1>Projects</h1>
+<div class="row">
+    <div class="col-8 mx-auto">
+        <table class="table">
+            <thead>
+                <th class="text-center">Id Projet</th>
+                <th class="text-center">Nom du projet</th>
+                <th class="text-center">Date de début</th>
+                <th class="text-center">Nb collaborateurs</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let project of projects">
+                    <td class="text-center">{{project.id}}</td>
+                    <td>{{project.name}}</td>
+                    <td class="text-center" >{{project.dateStart | date: 'dd/MM/yyyy'}}</td>
+                    <td class="text-center">{{project.teamSize}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
