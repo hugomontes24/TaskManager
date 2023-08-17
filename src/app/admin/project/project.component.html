@@ -1,4 +1,14 @@
-<h1>Projects</h1>
+<h1>Projets</h1>
+<div class="row">
+    <div class="col-8 mx-auto">
+        <button class="btn btn-primary" 
+            data-bs-toggle="modal" 
+            data-bs-target="#newModal"
+            type="button">
+            Créer un projet
+        </button>
+    </div>
+</div>
 <div class="row">
     <div class="col-8 mx-auto">
         <table class="table">
@@ -19,3 +29,70 @@
         </table>
     </div>
 </div>
+<form  >
+    <!-- #form="ngForm" -->
+    <!-- (submit)="formulaire(form) -->
+    <div id="newModal" class="modal fade" 
+        tabindex="-1"
+        aria-labelledby="newProjectLabel"
+        aria-hidden="true"
+        >
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="newProjectLabel">Nouveau Projet</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Id du projet</span>
+                    <input type="number" 
+                        [(ngModel)]="newProject.id"
+                        name="projectId" 
+                        class="form-control" 
+                        aria-label="Sizing example input" 
+                        aria-describedby="inputGroup-sizing-default">
+                </div>
+
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Nom du projet</span>
+                    <input type="text" 
+                        [(ngModel)]="newProject.name"
+                        name="projecName" 
+                        class="form-control" 
+                        aria-label="Sizing example input" 
+                        aria-describedby="inputGroup-sizing-default">
+                </div>
+
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Date de début</span>
+                    <input type="date" 
+                        [(ngModel)]="newProject.dateStart"
+                        name="dateStart" 
+                        class="form-control" 
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
+                
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Nombre de collab.</span>
+                    <input 
+                        type="number" 
+                        [(ngModel)]="newProject.teamSize"
+                        name="teamSize" 
+                        class="form-control" 
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+            <button type="button" class="btn btn-primary" (click)="onSaveClick()">Enregistrer</button>
+            </div>
+        </div>
+        </div>
+    </div>
+</form>

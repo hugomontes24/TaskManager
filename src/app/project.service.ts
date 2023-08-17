@@ -10,11 +10,16 @@ export class ProjectService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllProjects(): Observable<Project[]> {
+  getAllProjects(table: string): Observable<Project[]> {
 
-    return this.httpClient.get<Project[]>("http://localhost/angular/TaskManager/src/app/api/project.php?action=readAll");
+    return this.httpClient.get<Project[]>(`http://localhost/angular/TaskManager/src/app/api/${table}.php?action=readAll`);
     // return this.httpClient.get<Project[]>("/api/projects");
 
+  }
+
+  insertProject(newProject: Project): Observable<Project>{
+    console.log(newProject);
+    return this.httpClient.post<Project>("http://localhost/angular/TaskManager/src/app/api/project.php?action=insert", JSON.stringify( newProject) );
   }
 
 
