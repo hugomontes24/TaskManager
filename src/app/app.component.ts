@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoginService } from './services/login.service';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +10,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class AppComponent {
   title = 'TaskManager';
   
-  constructor(private modalService: NgbModal) { }
+  constructor(
+      private modalService: NgbModal,
+      protected loginService: LoginService
+    ) { }
 
   public open(modal: any): void { // bootstrap
     this.modalService.open(modal);
   }
+
 }

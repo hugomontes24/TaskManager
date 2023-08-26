@@ -1,0 +1,45 @@
+<form  >
+    <div class="row " > 
+        <div class="col-lg-6 col-xl-5 col-md-9 mx-auto">
+
+            <div class="card mt-4">
+
+                <div class="header bg-secondary text-white">
+                    <h5 class="modal-title" id="newProjectLabel">Login</h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group form-row">
+                        <label for="userName" class="col-md4 col-form-label">Nom</label>
+                        <div class="col-md-8">
+                            <input type="text" 
+                                class="form-control"
+                                placeholder="username"                      
+                                name="userName"
+                                [(ngModel)]="loginViewModel.userName"
+                                >
+                        </div>
+                    </div>
+
+                    <div class="form-group form-row">
+                        <label for="password" class="col-md4 col-form-label">Mot de passe</label>
+                        <div class="col-md-8">
+                            <input type="password" 
+                                class="form-control"
+                                placeholder="Mot de passe"        
+                                name="password"
+                                [(ngModel)]="loginViewModel.password"
+
+                                >
+                        </div>
+                    </div>
+                    <div class="card-footer text-right">
+                        <span class="text-danger">{{ loginError }} </span>
+                        <button class="btn btn-primary" (click)="onLoginClick($event)">Connexion</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</form>

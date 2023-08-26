@@ -1,12 +1,33 @@
 <h1>Projets</h1>
 <div class="row">
-    <div class="col-8 mx-auto">
+    <div class="col-4 mx-auto">
         <button class="btn btn-primary" 
             data-bs-toggle="modal" 
             data-bs-target="#newModal"
             type="button">
             Créer un projet
         </button>
+    </div>
+    <div class="col-8 ">
+        <div class="input-group mb-3 ">
+            <label for="searchBy" class="pe-3">Chercher par : </label>
+            <select class="form-select" 
+                    name=searchBy 
+                    [(ngModel)]="searchBy"
+                    placeholder="Test"
+                    aria-label="Default select example"
+                    id="searchBy">
+                <option value="projectId" selected>Id</option>
+                <option value="projectName">Nom du projet</option>
+                <option value="dateStart">Date de début</option>
+                <option value="teamSize">Taille de l'equipe</option>
+            </select>
+        </div>
+        <div class="input-group mb-3">
+            <label for="searchText" class="pe-3">Chercher : </label>
+            <input type="text" class="form-control pe-3" id="searchText" [(ngModel)]="searchText">
+            <span class="input-group-text" (click)="onSearchClick()">chercher</span>
+        </div>
     </div>
 </div>
 <div class="row">
@@ -17,18 +38,34 @@
                 <th class="text-center">Nom du projet</th>
                 <th class="text-center">Date de début</th>
                 <th class="text-center">Nb collaborateurs</th>
+                <th>Actions</th>
             </thead>
             <tbody>
-                <tr *ngFor="let project of projects">
+                <tr *ngFor="let project of projects; let i = index">
                     <td class="text-center">{{project.id}}</td>
                     <td>{{project.name}}</td>
                     <td class="text-center" >{{project.dateStart | date: 'dd/MM/yyyy'}}</td>
                     <td class="text-center">{{project.teamSize}}</td>
+                    <td>
+                        <button class="btn btn-info"
+                                (click)="onEditClick($event, i)"
+                                data-bs-toggle="modal"
+                                data-bs-target="#editModal">
+                            Modifier
+                        </button>
+                        <button class="btn btn-warning"
+                                (click)="onDeleteClick($event, i)"
+                                data-bs-toggle="modal"
+                                data-bs-target="#deleteModal">
+                            Supprimer
+                        </button>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
+
 <form  >
     <!-- #form="ngForm" -->
     <!-- (submit)="formulaire(form) -->
@@ -60,7 +97,7 @@
                     <span class="input-group-text" id="inputGroup-sizing-default">Nom du projet</span>
                     <input type="text" 
                         [(ngModel)]="newProject.name"
-                        name="projecName" 
+                        name="projectName" 
                         class="form-control" 
                         aria-label="Sizing example input" 
                         aria-describedby="inputGroup-sizing-default">
@@ -91,6 +128,141 @@
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
             <button type="button" class="btn btn-primary" (click)="onSaveClick()">Enregistrer</button>
+            </div>
+        </div>
+        </div>
+    </div>
+</form>
+
+<form  >
+    <!-- #form="ngForm" -->
+    <!-- (submit)="formulaire(form) -->
+    <div id="editModal" class="modal fade" 
+        tabindex="-1"
+        aria-labelledby="newProjectLabel"
+        aria-hidden="true"
+        >
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="newProjectLabel">Modifier un Projet</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Id du projet</span>
+                    <input type="number" 
+                        [(ngModel)]="editProject.id"
+                        name="projectId" 
+                        class="form-control form-control-plain-text" 
+                        aria-label="Sizing example input" 
+                        aria-describedby="inputGroup-sizing-default"
+                        disabled="disabled">
+                </div>
+
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Nom du projet</span>
+                    <input type="text" 
+                        [(ngModel)]="editProject.name"
+                        name="projectName" 
+                        class="form-control" 
+                        aria-label="Sizing example input" 
+                        aria-describedby="inputGroup-sizing-default">
+                </div>
+
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Date de début</span>
+                    <input type="date" 
+                        [(ngModel)]="editProject.dateStart"
+                        name="dateStart" 
+                        class="form-control" 
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                        value="">
+                </div>
+                
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Nombre de collab.</span>
+                    <input 
+                        type="number" 
+                        [(ngModel)]="editProject.teamSize"
+                        name="teamSize" 
+                        class="form-control" 
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+            <button type="button" class="btn btn-primary" (click)="onUpdateClick()">Enregistrer</button>
+            </div>
+        </div>
+        </div>
+    </div>
+</form>
+
+<form  >
+    <!-- #form="ngForm" -->
+    <!-- (submit)="formulaire(form) -->
+    <div id="deleteModal" class="modal fade" 
+        tabindex="-1"
+        aria-labelledby="newProjectLabel"
+        aria-hidden="true"
+        >
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="newProjectLabel">Supprimer un Projet</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">      
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Id du projet</span>
+                    <input type="number" 
+                        [(ngModel)]="deleteProject.id"
+                        name="projectId" 
+                        class="form-control form-control-plain-text" 
+                        aria-label="Sizing example input" 
+                        aria-describedby="inputGroup-sizing-default"
+                        disabled="disabled">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Nom du projet</span>
+                    <input type="text" 
+                        [(ngModel)]="deleteProject.name"
+                        name="projectName" 
+                        class="form-control" 
+                        aria-label="Sizing example input" 
+                        aria-describedby="inputGroup-sizing-default"
+                        disabled="disabled">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Date de début</span>
+                    <input type="date" 
+                        [(ngModel)]="deleteProject.dateStart"
+                        name="dateStart" 
+                        class="form-control" 
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                        value=""
+                        disabled="disabled">
+                </div>             
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Nombre de collab.</span>
+                    <input 
+                        type="number" 
+                        [(ngModel)]="deleteProject.teamSize"
+                        name="teamSize" 
+                        class="form-control" 
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                        disabled="disabled">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-warning" (click)="onDeleteConfirm()">Supprimer</button>
             </div>
         </div>
         </div>

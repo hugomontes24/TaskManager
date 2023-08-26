@@ -6,6 +6,9 @@ import { AboutComponent } from './about/about.component';
 import { DashboardService } from '../dashboard.service';
 import { ProjectComponent } from './project/project.component';
 import { FormsModule } from '@angular/forms';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faStar as fasStar, fas, faCoffee } from '@fortawesome/free-solid-svg-icons';
+
 
 
 
@@ -18,7 +21,8 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    FormsModule  
+    FormsModule,
+    FontAwesomeModule  
   ],
   exports: [
     DashboardComponent,
@@ -28,4 +32,9 @@ import { FormsModule } from '@angular/forms';
   ],
   providers:[ DashboardService]
 })
-export class AdminModule { }
+export class AdminModule {
+  constructor(library: FaIconLibrary){
+    library.addIconPacks(fas);
+    library.addIcons(faCoffee);
+  }
+ }
